@@ -363,38 +363,7 @@ app.get(`/api/omrajhalwa/leetcode/usercalender/:userId/:year`,async(req,res)=>{
 app.get(`/api/omrajhalwa/leetcode/userprofilelc/:userId`,async(req,res)=>{
     console.log(req.params);
     try{
-        const result=await axios.get(`https://leetcode.com/graphql/?query=query {   matchedUser(username: "${req.params.userId}") {
-    contestBadge {
-      name
-      expired
-      hoverText
-      icon
-    }
-    username
-    githubUrl
-    twitterUrl
-    linkedinUrl
-    profile {
-      ranking
-      userAvatar
-      realName
-      aboutMe
-      school
-      websites
-      countryName
-      company
-      jobTitle
-      skillTags
-      postViewCount
-      postViewCountDiff
-      reputation
-      reputationDiff
-      solutionCount
-      solutionCountDiff
-      categoryDiscussCount
-      categoryDiscussCountDiff
-    }
-  }  }`,{
+        const result=await axios.get(`https://leetcode.com/graphql/?query=query {    matchedUser(username: "${req.params.userId}") {    contestBadge {      name      expired      hoverText      icon    }    username    githubUrl    twitterUrl    linkedinUrl    profile {      ranking      userAvatar      realName      aboutMe      school      websites      countryName      company      jobTitle      skillTags      postViewCount      postViewCountDiff      reputation      reputationDiff      solutionCount      solutionCountDiff      categoryDiscussCount      categoryDiscussCountDiff    }  } }`,{
             withCredentials: true,
             headers: {
               'Content-Type': 'multipart/form-data'

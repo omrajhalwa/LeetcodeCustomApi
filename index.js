@@ -50,7 +50,7 @@ app.get("/api/omrajhalwa/leetcode/upcomingContest",async(req,res)=>{
 
 
 
-    //   console.log(result.data.data.upcomingContests);
+       console.log(result.data.data.upcomingContests);
 
 
 
@@ -393,6 +393,31 @@ app.get(`/api/omrajhalwa/leetcode/userprofilelc/:userId`,async(req,res)=>{
    
 
 });
+
+app.get(`/api/omrajhalwa/leetcode/question/:questionSlug`,async (req,res)=>{
+  console.log(req.params.questionSlug);
+       try {
+         const result=await axios.get(`https://leetcode.com/graphql/?query=query {  question(titleSlug: "${req.params.questionSlug}") {    questionId    questionFrontendId    title    titleSlug    isPaidOnly    difficulty    likes    dislikes  } question(titleSlug: "${req.params.questionSlug}") {    topicTags {      name      slug    }  }  }`,
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+        //  console.group(result);
+
+        return  res.status(200).json({
+          message:"Succefully data fetched",
+          content:result.data.data,
+          success:true
+         })
+       } catch (error) {
+        res.status(401).json({
+          message:error,
+          success:false
+         })
+       }
+})
 
 app.listen(8080,()=>{
     console.log(`server listen at port 8080`);

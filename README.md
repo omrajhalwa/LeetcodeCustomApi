@@ -3,7 +3,7 @@
 # API Endpoints Documentation
 ## Deployment
 
-> **Deployed Link:** [View the live API](https://leetcodecustomapi.onrender.com)
+> **Deployed Link:** [https://leetcodecustomapi.onrender.com](https://leetcodecustomapi.onrender.com)
 
 ---
 

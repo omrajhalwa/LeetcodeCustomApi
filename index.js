@@ -31,6 +31,20 @@ app.get("/api/omrajhalwa/leetcode/upcomingContest",async(req,res)=>{
             return time;
         }
 
+        function dateAndTime(unixTimestamp) {
+           
+          var a = new Date(unixTimestamp * 1000);
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          var year = a.getFullYear();
+          var month = a.getMonth()+1;
+          var date = a.getDate();
+          var hour = a.getHours();
+          var min = a.getMinutes();
+          var sec = a.getSeconds();
+          var time = {date,month ,year};
+          return time;
+      }
+
         function convertUnixToITCtime(unixTimestamp) {
            
             var a = new Date(unixTimestamp * 1000);
@@ -60,11 +74,30 @@ app.get("/api/omrajhalwa/leetcode/upcomingContest",async(req,res)=>{
                object_container.title=element.title;
                object_container.date=convertUnixToITCdate(element.startTime);
                object_container.time=convertUnixToITCtime(element.startTime);
+               object_container.flag=dateAndTime(element.startTime);
                upcoming_contest.push(object_container);
        }
 
+     
+
+       if(upcoming_contest[0].flag.year>upcoming_contest[1].flag.year){
+            let temp=upcoming_contest[0];
+            upcoming_contest[0]=upcoming_contest[1];
+            upcoming_contest[1]=temp;
+       }else if(upcoming_contest[0].flag.year === upcoming_contest[1].flag.year){
+                if(upcoming_contest[0].flag.month>upcoming_contest[1].flag.month){
+                  let temp=upcoming_contest[0];
+                  upcoming_contest[0]=upcoming_contest[1];
+                  upcoming_contest[1]=temp;
+                }else if(upcoming_contest[0].flag.month === upcoming_contest[1].flag.month){
+                  if(upcoming_contest[0].flag.date>upcoming_contest[1].flag.date){
+                    let temp=upcoming_contest[0];
+                    upcoming_contest[0]=upcoming_contest[1];
+                    upcoming_contest[1]=temp;
+                  }
+                }
+       }
        console.log(upcoming_contest);
-       
         return   res.status(200).json({
             message:"Succefully data fetched",
             data:upcoming_contest,

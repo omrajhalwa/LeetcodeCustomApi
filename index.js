@@ -1,8 +1,10 @@
 import express from "express";
 import axios from "axios";
+import cors from 'cors';
 const app=express();
 
 console.log("om");
+app.use(cors()); // Allow all origins
 
 
 app.get("/api/omrajhalwa/leetcode/upcomingContest",async(req,res)=>{
